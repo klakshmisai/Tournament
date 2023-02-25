@@ -67,7 +67,17 @@ public class Simulator{
     /**
      * @param matches
      */
-    public static void play matches(List<Match>matches){
-        for(Matches)
-    }
-}
+   
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      
