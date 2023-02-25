@@ -86,7 +86,7 @@ public class Simulator{
 static void showpointsTable(List<Team>teams,List<Match> matches){
     for(Teamteam teams){
         int WonGames = matches.stream().filter(m->m.getWinner().equals team)).collect(Collectors.toList()).size();                                              
-        int lostGames = matches.stream().filter(m->m.getLoser().equals team)).collect(Collectors.toList()).size();               )
+        int lostGames = matches.stream().filter(m->m.getLoser().equals team)).collect(Collectors.toList()).size();               
     }
 
 }
