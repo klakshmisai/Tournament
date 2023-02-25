@@ -66,13 +66,30 @@ class Scheduler{
 public class Simulator{
     /**
      * @param matches
-     */
-   
-        
-        
-        
-        
-        
+     */    
+      public static void play matches(List<Match>matches){
+        for(Match match:matches){
+            int random = (int)((Math.random()*10)+1);
+            //my random logic=this could be antthing
+            if(random %2 == 0){
+                match.setWinner(match.getTeam1());
+                match.setLoser(match.getTeam2());
+            }
+            else{
+              match.setLoser(match.getTeam2());
+              match.setLoser(match.getTeam1());
+            }
+         }
+    }
+}
+
+static void showpointsTable(List<Team>teams,List<Match> matches){
+    for(Teamteam teams){
+        int WonGames = matches.stream().filter(m->m.getWinner().equals team)).collect(Collectors.toList()).size();                                              
+        int lostGames = matches.stream().filter(m->m.getLoser().equals team)).collect(Collectors.toList()).size();               )
+    }
+
+}
         
         
         
