@@ -89,12 +89,24 @@ static void showpointsTable(List<Team>teams,List<Match> matches){
         int lostGames = matches.stream().filter(m->m.getLoser().equals team)).collect(Collectors.toList()).size();   
         System.out.println(team);
         System.out.println(String valueOf(wonGames));
-          
+        System.out.println(String valueOf(lostGames));
     }
 
 }
+public class Team{
+    private String name;
+    Team(String name){
+        this.name=name;
+    }
+    @Override
+    public String toString(){
+        //TODO Auto-generated method stub
+        return this.name.equals(((Team)obj).name);
+    }
+}
         
         
+     
         
         
         
