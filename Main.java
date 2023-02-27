@@ -1,24 +1,25 @@
-import java.lang.Thread.State;
-import java.util.ArrayList;
-import java.util.List;
-public class Main{
-    public static void main(String args[])throws Exception{
-        List<Team>teams=new ArrayList<>();
-        teams.add(newTeam("India"));
-        teams.add(newTeam("Australia"));
-        teams.add(newTeam("England"));
-        teams.add(newTeam("Pakistan"));
-        teams.add(newTeam("NZ"));
-        List<Match> Matches=Scheduler.createSchedule(teams);
+import java.util.*;
+import java.util.stream.*;
+public class MatchSched {
+    public static void main(String[] args) throws Exception{
+        ArrayList<Team> teams=new ArrayList<>();
+        teams.add(new Team("India"));
+        teams.add(new Team("Australia"));
+        teams.add(new Team("England"));
+        teams.add(new Team("Pakistan"));
+        teams.add(new Team("Srilanka"));
+
+        List<Match> matches=Scheduler.createSchedule(teams);
         System.out.println(matches);
-        simulator.play Matches(matches);
-        simulator.showpointsTable(table,matches);
+        Simulator.playMatches(matches);
+        Simulator.showPointsTable(teams,matches);
     }
 }
-public class match{
+
+class Match{
     private Team team1;
     private Team team2;
-    private Team Winner;
+    private Team winner;
     private Team loser;
     Match(Team team,Team team3){
         this.team1=team;
@@ -27,89 +28,82 @@ public class match{
     public Team getTeam1(){
         return team1;
     }
-    public Team get Team2(){
-        retur team2;
+    public Team getTeam2(){
+        return team2;
     }
-    public Team get Winner(){
+    public Team getWinner(){
         return winner;
-    } 
-    public void set Winner(Team Winner){
-        this winner=Winner;
     }
-    public Team get loser(){
+    public void setWinner(Team winner){
+        this.winner=winner;
+    }
+    public Team getLoser(){
         return loser;
     }
     public void setLoser(Team loser){
-        this loser=loser;
+        this.loser=loser;
     }
     @Override
-    public String to String(){
-        String matchDescription =team1+"vs"+team2;
-        if(Winner !=null){
-            String result="\n Winner="+this.winner.toString()+"Loser="+this.loser.toString()+\n";
-            matchDescription = matchDescription + result;
+    public String toString(){
+        String matchDescription=team1+" Vs "+team2;
+        if(winner!=null){
+            String result="\n Winner="+this.winner.toString()+" Loser= "+this.loser.toString();
+            matchDescription =matchDescription+result;
         }
         return matchDescription;
     }
 }
+
 class Scheduler{
-    public static List<Match>createSchedule(List<team>teams){
-        List<Match>matches=new ArrayList<>();
-        for(int i=0;i<teams.size();i++);
-        for(int j=i+1;j<teams.size();j++){
-         Match match=new Match(teams.get(i)),teams.get(j));
-         matches.add(match);
+    public static List<Match> createSchedule(List<Team> teams){
+        List<Match> matches=new ArrayList<>();
+        for(int i=0;i<teams.size();i++){
+            for(int j=i+1;j<teams.size();j++){
+                Match match=new Match(teams.get(i), teams.get(j));
+                matches.add(match);
+            }
         }
+        return matches;
     }
-    return matches;
 }
-public class Simulator{
-    /**
-     * @param matches
-     */    
-      public static void play matches(List<Match>matches){
+
+class Simulator{
+    public static void playMatches(List<Match> matches){
         for(Match match:matches){
-            int random = (int)((Math.random()*10)+1);
-            //my random logic=this could be antthing
-            if(random %2 == 0){
+            int random=(int)((Math.random()*10)+1);
+
+            if(random%2==0){
                 match.setWinner(match.getTeam1());
                 match.setLoser(match.getTeam2());
+            }else{
+                match.setWinner(match.getTeam2());
+                match.setLoser(match.getTeam1());
             }
-            else{
-              match.setLoser(match.getTeam2());
-              match.setLoser(match.getTeam1());
+        }
+    }
+        static void showPointsTable(List<Team> teams,List<Match> matches){
+            for(Team team:teams){
+                int won=matches.stream().filter(ele->ele.getWinner().equals(team)).collect(Collectors.toList()).size();
+                int lost=matches.stream().filter(ele->ele.getLoser().equals(team)).collect(Collectors.toList()).size();
+                System.out.println(team);
+                System.out.println(won);
+                System.out.println(lost);
             }
-         }
-    }
+        }
 }
-
-static void showpointsTable(List<Team>teams,List<Match> matches){
-    for(Teamteam teams){
-        int WonGames = matches.stream().filter(m->m.getWinner().equals team)).collect(Collectors.toList()).size();                                              
-        int lostGames = matches.stream().filter(m->m.getLoser().equals team)).collect(Collectors.toList()).size();   
-        System.out.println(team);
-        System.out.println(String valueOf(wonGames));
-        System.out.println(String valueOf(lostGames));
-    }
-
-}
-public class Team{
+class Team{
     private String name;
     Team(String name){
         this.name=name;
     }
     @Override
     public String toString(){
-        //TODO Auto-generated method stub
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object obj){
         return this.name.equals(((Team)obj).name);
     }
 }
-        
-        
-     
-        
-        
-        
-        
-        
       
