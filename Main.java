@@ -1,6 +1,6 @@
 import java.util.*;
 import java.util.stream.*;
-public class MatchSched {
+public class Main {
     public static void main(String[] args) throws Exception{
         ArrayList<Team> teams=new ArrayList<>();
         teams.add(new Team("India"));
